@@ -71,12 +71,23 @@ export default function HomePage() {
   return (
     <main style={{ padding: '20px', maxWidth: '600px', margin: '0 auto' }}>
       {/* 設計図S1の「タスク一覧」というタイトルだよ */}
-      <h1 style={{ textAlign: 'center', color: '#333', marginBottom: '20px' }}>TODOアプリ - タスク一覧</h1>
-      
+      <h1 style={{
+        textAlign: 'center',
+        marginBottom: '20px',
+        padding: '15px 0', // 上下にも少し余白を追加するよ
+        backgroundColor: '#1E3A8A', // 濃い紺色（CSSのカラーコードだよ）
+        color: 'white', // 文字の色を白にするよ
+        borderRadius: '8px', // 角を少し丸くするよ（S1のイメージっぽいかな？）
+        boxShadow: '0 2px 4px rgba(0,0,0,0.2)', // ほんの少し影をつけて立体感を出すよ
+        fontSize: '2em', // 文字の大きさを少し大きくするよ
+      }}>
+        TODO - タスク一覧
+      </h1>
+
       {/* 「新規タスクの作成」ボタンだよ */}
       {/* S1のイメージに近づけるために、一旦普通の<button>タグで作るね。
           将来的には<ButtonLink>部品にすると、Next.jsのページ遷移と連携できて便利だよ！ */}
-      <div style={{ textAlign: 'right', marginBottom: '20px' }}>
+      <div style={{ textAlign: 'center', marginBottom: '20px' }}>
         <button
           // 本当は `/new` ページに遷移したいけど、まだページがないからダミーのonClickを入れておくね
           onClick={() => alert('新規タスク作成ページに移動します！（まだ作ってないよ）')}
