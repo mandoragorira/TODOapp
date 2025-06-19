@@ -13,6 +13,7 @@ import { TaskList } from '@/components/TaskList';
 // もしButtonLinkがなければ、普通の<a>タグや<button>タグでもOKだよ！
 // import { ButtonLink } from '@/components/ButtonLink'; // これはまだ作ってないけど、後で使うかも！
 
+import Link from 'next/link';
 
 // このHomePageが、アプリのトップページだよ！
 export default function HomePage() {
@@ -80,15 +81,15 @@ export default function HomePage() {
         borderRadius: '8px', // 角を少し丸くするよ（S1のイメージっぽいかな？）
         boxShadow: '0 2px 4px rgba(0,0,0,0.2)', // ほんの少し影をつけて立体感を出すよ
         fontSize: '2em', // 文字の大きさを少し大きくするよ
-      }}></h1>    
+      }}>TODOリスト
+      </h1>    
         
       {/* 「新規タスクの作成」ボタンだよ */}
       {/* S1のイメージに近づけるために、一旦普通の<button>タグで作るね。
           将来的には<ButtonLink>部品にすると、Next.jsのページ遷移と連携できて便利だよ！ */}
       <div style={{ textAlign: 'center', marginBottom: '20px' }}>
+        <Link href="/new" style={{ textDecoration: 'none' }}> {/* styleで下線を消してるのは、Linkがデフォルトで下線を付けちゃうからだよ */}
         <button
-          // 本当は `/new` ページに遷移したいけど、まだページがないからダミーのonClickを入れておくね
-          onClick={() => alert('新規タスク作成ページに移動します！（まだ作ってないよ）')}
           style={{
             padding: '10px 20px',
             backgroundColor: '#FFD700', // S1イメージの黄色っぽい色
@@ -102,6 +103,7 @@ export default function HomePage() {
         >
           新規タスクの作成 ＋
         </button>
+        </Link>
       </div>
 
       <hr style={{ margin: '30px 0', borderColor: '#eee' }} />
