@@ -1,9 +1,129 @@
 // app/new/page.tsx
+
+import Link from 'next/link'; // ページ移動のためにLinkを使うよ
+
+// このページが表示されたときに使われる関数だよ
 export default function NewTaskPage() {
+  // 後でここに「入力された文字を覚えておく場所」を作るよ
+  // 今はとりあえず、フォームの見た目だけ作っちゃおう！
+
   return (
-    <main style={{ padding: '20px', textAlign: 'center' }}>
-      <h1>新しいタスクを作成するページだよ！</h1>
-      <p>ここからタスク作成のフォームを作るんだ。</p>
+    <main style={{
+      maxWidth: '600px', // ページの最大幅を制限して、見やすくする
+      margin: '40px auto', // 上下の余白と左右中央寄せ
+      padding: '30px',
+      backgroundColor: '#f0f8ff', // 薄い水色の背景
+      borderRadius: '12px', // 角を丸くする
+      boxShadow: '0 8px 16px rgba(0, 0, 0, 0.1)', // 影を追加
+      fontFamily: 'sans-serif', // 見やすいフォントに
+    }}>
+      <h1 style={{
+        textAlign: 'center',
+        color: '#3C4B64', // 紺色
+        marginBottom: '30px',
+        fontSize: '28px',
+      }}>
+        新しいタスクを作成
+      </h1>
+
+      {/* ここからフォームの部品だよ */}
+      <form style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+        {/* タスクのタイトル入力欄 */}
+        <div>
+          <label htmlFor="taskTitle" style={{
+            display: 'block',
+            marginBottom: '8px',
+            fontSize: '16px',
+            fontWeight: 'bold',
+            color: '#555',
+          }}>
+            タスクのタイトル（入力必須）
+          </label>
+          <input
+            type="text"
+            id="taskTitle" // どの入力欄か分かるように名前をつけてるよ
+            placeholder="例: 買い物のリストを作る" // 入力例を表示するよ
+            style={{
+              width: '100%',
+              padding: '12px',
+              border: '1px solid #ccc',
+              borderRadius: '8px',
+              fontSize: '16px',
+              boxSizing: 'border-box', // パディングを含めて幅を計算するおまじない
+            }}
+          />
+        </div>
+
+        {/* タスクの詳細入力欄 */}
+        <div>
+          <label htmlFor="taskDescription" style={{
+            display: 'block',
+            marginBottom: '8px',
+            fontSize: '16px',
+            fontWeight: 'bold',
+            color: '#555',
+          }}>
+            タスクの詳細（入力任意）
+          </label>
+          <textarea
+            id="taskDescription" // どの入力欄か分かるように名前をつけてるよ
+            placeholder="例: 牛乳、パン、卵を買う" // 入力例を表示するよ
+            rows={5} // 行数を指定するよ
+            style={{
+              width: '100%',
+              padding: '12px',
+              border: '1px solid #ccc',
+              borderRadius: '8px',
+              fontSize: '16px',
+              boxSizing: 'border-box',
+              resize: 'vertical', // 縦方向にはサイズを変えられるようにする
+            }}
+          ></textarea>
+        </div>
+
+        {/* ボタンたち */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '30px' }}>
+          {/* 戻るボタン（S1へ移動） */}
+          <Link href="/" style={{ textDecoration: 'none' }}> {/* トップページへ戻るよ */}
+            <button
+              type="button" // フォーム送信じゃないよ、って教えてる
+              style={{
+                backgroundColor: '#6c757d', // グレー
+                color: 'white',
+                padding: '12px 25px',
+                borderRadius: '8px',
+                border: 'none',
+                cursor: 'pointer',
+                fontSize: '16px',
+                minWidth: '120px',
+                boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+                transition: 'background-color 0.2s ease', // マウスオーバー時のアニメーション
+              }}
+            >
+              戻る
+            </button>
+          </Link>
+
+          {/* 登録ボタン（今はまだ何も起こらないよ） */}
+          <button
+            type="submit" // フォームを送信するボタンだよ
+            style={{
+              backgroundColor: '#007bff', // 青色
+              color: 'white',
+              padding: '12px 25px',
+              borderRadius: '8px',
+              border: 'none',
+              cursor: 'pointer',
+              fontSize: '16px',
+              minWidth: '120px',
+              boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+              transition: 'background-color 0.2s ease',
+            }}
+          >
+            タスクを登録
+          </button>
+        </div>
+      </form>
     </main>
   );
 }
