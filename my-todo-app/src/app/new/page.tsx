@@ -167,7 +167,7 @@ export default function NewTaskPage() {
                 transition: 'background-color 0.2s ease',
               }}
             >
-              戻る (S1)
+              戻る 
             </button>
           </Link>
 
