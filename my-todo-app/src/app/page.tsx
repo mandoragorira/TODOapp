@@ -80,7 +80,8 @@ export default function HomePage() {
         borderRadius: '8px', // 角を少し丸くするよ（S1のイメージっぽいかな？）
         boxShadow: '0 2px 4px rgba(0,0,0,0.2)', // ほんの少し影をつけて立体感を出すよ
         fontSize: '2em', // 文字の大きさを少し大きくするよ
-      }}></h1>    
+      }}>TODOリスト
+      </h1>    
         
       {/* 「新規タスクの作成」ボタンだよ */}
       {/* S1のイメージに近づけるために、一旦普通の<button>タグで作るね。
