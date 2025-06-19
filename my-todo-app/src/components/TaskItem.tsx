@@ -42,9 +42,6 @@ export function TaskItem({ task, onToggleComplete, onDelete }: TaskItemProps) {
         href={`/tasks/${task.id}`}
         style={{
           flexGrow: 1,
-          // ★この2行を削除するよ！
-          // textDecoration: 'none', 
-          // color: 'inherit',
           
           // この2行は残すよ！
           textDecoration: task.completed ? 'line-through' : 'none',
