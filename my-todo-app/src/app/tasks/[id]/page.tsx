@@ -53,17 +53,22 @@ export default function TaskDetailPage({ params }: { params: { id: string } }) {
   }
 
   // S3への削除確認ステップ
-  const handleConfirmDelete = () => {
+  //const handleConfirmDelete = () => {
     // S3の図の通り「このタスクを削除しますか？」という確認を出すよ
-    const confirmDelete = window.confirm(`「${task.title}」を削除しますか？
+    //const confirmDelete = window.confirm(`「${task.title}」を削除しますか？
+    
 
-このタスクは元に戻せません。`);
-    if (confirmDelete) {
-      deleteTask(task.id); // taskStorage.tsのdeleteTaskを呼んで削除！
-      router.push('/deleted-success'); // S4のページに仮で遷移するよ！
-      // 後でS4ページをちゃんと作ったら、このパスをそれに合わせるね
-    }
-  };
+//このタスクは元に戻せません。`);
+    //if (confirmDelete) {
+    //  deleteTask(task.id); // taskStorage.tsのdeleteTaskを呼んで削除！
+    //  router.push('/deleted-success'); // S4のページに仮で遷移するよ！
+    //}
+  //};
+  
+  const handleConfirmDelete = () => {
+  // window.confirmの代わりに、S3の削除確認ページに移動するよ！
+  router.push(`/delete-confirm/${task.id}`); // ★ここをS3のパスに変更するよ！
+};
 
   return (
     <div style={{

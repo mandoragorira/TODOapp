@@ -33,7 +33,7 @@ export default function DeletedSuccessPage() {
         boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
         color: '#fff'
       }}>
-        <h2 style={{ fontSize: '2em', margin: '0' }}>タスクを削除しました！</h2>
+        <h2 style={{ fontSize: '2em', margin: '0' }}>タスクを削除しました</h2>
         <p style={{ marginTop: '15px', color: '#fff' }}>画面をタップして一覧に戻る</p>
       </div>
     </div>

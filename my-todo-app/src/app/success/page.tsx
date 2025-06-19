@@ -36,7 +36,8 @@ export default function SuccessPage() {
         boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
         color: '#333'
       }}>
-        <h2 style={{ fontSize: '2em', margin: '0 0 20px 0' }}>タスクを登録しました</h2>
+        <h2 style={{ fontSize: '2em', margin: '0 0 20px 0' }}>タスクを登録しました!</h2>
+        <p style={{ marginTop: '15px', color: '#333' }}>画面をタップして一覧に戻る</p>
       </div>
     </div>
   );
