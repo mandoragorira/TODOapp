@@ -1,11 +1,40 @@
 // app/new/page.tsx
+"use client"; // ★この一行を一番上に追加するよ！
 
 import Link from 'next/link'; // ページ移動のためにLinkを使うよ
+import { useState } from 'react';
 
 // このページが表示されたときに使われる関数だよ
 export default function NewTaskPage() {
   // 後でここに「入力された文字を覚えておく場所」を作るよ
   // 今はとりあえず、フォームの見た目だけ作っちゃおう！
+
+  // タイトルのメモ帳を用意するよ
+  // title という変数に今の入力値が入る
+  // setTitle という関数で入力値を更新する
+  // '' は最初、何も入ってない状態だよ、って意味
+  const [title, setTitle] = useState('');
+
+  // 詳細のメモ帳を用意するよ
+  const [description, setDescription] = useState('');
+
+  // エラーメッセージのメモ帳も用意しておくよ（今は空っぽ）
+  const [errorMessage, setErrorMessage] = useState('');
+
+  // 入力欄に文字が入力されたときに、メモ帳に書き込む関数
+  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTitle(e.target.value); // 入力された値をメモ帳（title）に書き込む
+    // タイトルが入力されたらエラーメッセージは消す
+    if (errorMessage) { // エラーメッセージがある場合だけ消す
+      setErrorMessage('');
+    }
+  };
+
+  // 詳細欄に文字が入力されたときに、メモ帳に書き込む関数
+  const handleDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setDescription(e.target.value); // 入力された値をメモ帳（description）に書き込む
+  };
+
 
   return (
     <main style={{
