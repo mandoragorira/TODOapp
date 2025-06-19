@@ -87,3 +87,16 @@ export const deleteTask = (id: string): Task[] => {
   // 更新されたリストを返すよ
   return updatedTasks;
 };
+
+// src/lib/taskStorage.ts
+
+// ...（上の方のaddTaskやloadTasksなどの関数はそのまま）...
+
+// 特定のIDのタスクを読み出す関数だよ
+export function getTaskById(id: string): Task | undefined {
+  // ★ここを getTasks() から loadTasks() に直すよ！★
+  const tasks = loadTasks(); // まずは全てのタスクを読み込むよ
+
+  // 読み込んだタスクのリストの中から、IDが一致するタスクを探すよ
+  return tasks.find(task => task.id === id);
+}
