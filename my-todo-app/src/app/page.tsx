@@ -91,7 +91,7 @@ export default function HomePage() {
         <Link href="/new" style={{ textDecoration: 'none' }}> {/* styleで下線を消してるのは、Linkがデフォルトで下線を付けちゃうからだよ */}
         <button
           style={{
-            padding: '10px 20px',
+            padding: '15px 70px',
             backgroundColor: '#FFD700', // S1イメージの黄色っぽい色
             color: '#333',
             border: 'none',
