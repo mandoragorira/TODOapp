@@ -1,62 +1,96 @@
 // app/new/page.tsx
-"use client"; // ★この一行を一番上に追加するよ！
 
-import Link from 'next/link'; // ページ移動のためにLinkを使うよ
+"use client";
+
+import Link from 'next/link';
 import { useState } from 'react';
+// ★TaskTypeとタスク保存の関数をインポートするよ！
+import { Task } from '@/types/task'; // タスクの設計図
+import { addTask } from '@/lib/taskStorage'; // タスクを追加する関数
+import { useRouter } from 'next/navigation'; // ★これもおまじない！ページを移動させるために使うよ
 
-// このページが表示されたときに使われる関数だよ
 export default function NewTaskPage() {
-  // 後でここに「入力された文字を覚えておく場所」を作るよ
-  // 今はとりあえず、フォームの見た目だけ作っちゃおう！
-
-  // タイトルのメモ帳を用意するよ
-  // title という変数に今の入力値が入る
-  // setTitle という関数で入力値を更新する
-  // '' は最初、何も入ってない状態だよ、って意味
   const [title, setTitle] = useState('');
-
-  // 詳細のメモ帳を用意するよ
   const [description, setDescription] = useState('');
-
-  // エラーメッセージのメモ帳も用意しておくよ（今は空っぽ）
   const [errorMessage, setErrorMessage] = useState('');
 
-  // 入力欄に文字が入力されたときに、メモ帳に書き込む関数
+  // ★ページ移動のための道具を用意するよ
+  const router = useRouter();
+
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTitle(e.target.value); // 入力された値をメモ帳（title）に書き込む
-    // タイトルが入力されたらエラーメッセージは消す
-    if (errorMessage) { // エラーメッセージがある場合だけ消す
+    setTitle(e.target.value);
+    if (errorMessage) {
       setErrorMessage('');
     }
   };
 
-  // 詳細欄に文字が入力されたときに、メモ帳に書き込む関数
   const handleDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setDescription(e.target.value); // 入力された値をメモ帳（description）に書き込む
+    setDescription(e.target.value);
   };
 
+  // ★「登録」ボタンが押されたら呼ばれる関数だよ
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault(); // これがないとページがリロードされちゃうのを防ぐおまじない
+
+    // まず、タイトルが入力されているかチェック！ (S6の対応)
+    if (!title.trim()) { // titleが空っぽだったり、スペースだけだったりしたら...
+      setErrorMessage('タイトルを入力してください'); // エラーメッセージを表示
+      return; // ここで処理を止める！
+    }
+
+    // 新しいタスクのデータを作るよ！
+    const newTask: Task = {
+      id: Date.now().toString(), // 今の時間をIDにする（ユニークなIDを作る簡単な方法）
+      title: title.trim(), // タイトルの前後のスペースを削除
+      description: description.trim(), // 詳細の前後のスペースを削除
+      completed: false, // 新しいタスクは最初は未完了だね
+      createdAt: new Date().toISOString(), // ★これも追加しよう！日時も保存するよ
+    };
+
+    // 作ったタスクを保存するよ！
+    addTask(newTask);
+
+    // 保存が終わったら、登録完了ページ (S7) に移動するよ！
+    // S7はまだ作ってないけど、今は仮でどこかに移動するってことにしておくね
+    // とりあえず、今は成功したらトップページに戻るようにしておこうか
+    // router.push('/') とか router.push('/success-page-for-task-creation') とか
+    // S7のURLがどうなるかまだ決まってないから、一旦ここではトップページに戻るようにするね
+    router.push('/success'); // ★S7用の仮のURLだよ！後で変更するかも！
+  };
 
   return (
     <main style={{
-      maxWidth: '600px', // ページの最大幅を制限して、見やすくする
-      margin: '40px auto', // 上下の余白と左右中央寄せ
+      maxWidth: '600px',
+      margin: '40px auto',
       padding: '30px',
-      backgroundColor: '#f0f8ff', // 薄い水色の背景
-      borderRadius: '12px', // 角を丸くする
-      boxShadow: '0 8px 16px rgba(0, 0, 0, 0.1)', // 影を追加
-      fontFamily: 'sans-serif', // 見やすいフォントに
+      backgroundColor: '#f0f8ff',
+      borderRadius: '12px',
+      boxShadow: '0 8px 16px rgba(0, 0, 0, 0.1)',
+      fontFamily: 'sans-serif',
     }}>
       <h1 style={{
         textAlign: 'center',
-        color: '#3C4B64', // 紺色
+        color: '#3C4B64',
         marginBottom: '30px',
         fontSize: '28px',
       }}>
         新しいタスクを作成
       </h1>
 
-      {/* ここからフォームの部品だよ */}
-      <form style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+      {/* エラーメッセージを表示する場所 */}
+      {errorMessage && (
+        <p style={{
+          color: 'red',
+          textAlign: 'center',
+          marginBottom: '20px',
+          fontWeight: 'bold',
+        }}>
+          {errorMessage}
+        </p>
+      )}
+
+      {/* ★formタグに onSubmit を追加するよ！ */}
+      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
         {/* タスクのタイトル入力欄 */}
         <div>
           <label htmlFor="taskTitle" style={{
@@ -70,15 +104,17 @@ export default function NewTaskPage() {
           </label>
           <input
             type="text"
-            id="taskTitle" // どの入力欄か分かるように名前をつけてるよ
-            placeholder="例: 買い物のリストを作る" // 入力例を表示するよ
+            id="taskTitle"
+            placeholder="例: 買い物のリストを作る"
+            value={title}
+            onChange={handleTitleChange}
             style={{
               width: '100%',
               padding: '12px',
-              border: '1px solid #ccc',
+              border: `1px solid ${errorMessage ? 'red' : '#ccc'}`,
               borderRadius: '8px',
               fontSize: '16px',
-              boxSizing: 'border-box', // パディングを含めて幅を計算するおまじない
+              boxSizing: 'border-box',
             }}
           />
         </div>
@@ -95,9 +131,11 @@ export default function NewTaskPage() {
             タスクの詳細（入力任意）
           </label>
           <textarea
-            id="taskDescription" // どの入力欄か分かるように名前をつけてるよ
-            placeholder="例: 牛乳、パン、卵を買う" // 入力例を表示するよ
-            rows={5} // 行数を指定するよ
+            id="taskDescription"
+            placeholder="例: 牛乳、パン、卵を買う"
+            rows={5}
+            value={description}
+            onChange={handleDescriptionChange}
             style={{
               width: '100%',
               padding: '12px',
@@ -105,7 +143,7 @@ export default function NewTaskPage() {
               borderRadius: '8px',
               fontSize: '16px',
               boxSizing: 'border-box',
-              resize: 'vertical', // 縦方向にはサイズを変えられるようにする
+              resize: 'vertical',
             }}
           ></textarea>
         </div>
@@ -113,11 +151,11 @@ export default function NewTaskPage() {
         {/* ボタンたち */}
         <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '30px' }}>
           {/* 戻るボタン（S1へ移動） */}
-          <Link href="/" style={{ textDecoration: 'none' }}> {/* トップページへ戻るよ */}
+          <Link href="/" style={{ textDecoration: 'none' }}>
             <button
-              type="button" // フォーム送信じゃないよ、って教えてる
+              type="button"
               style={{
-                backgroundColor: '#6c757d', // グレー
+                backgroundColor: '#6c757d',
                 color: 'white',
                 padding: '12px 25px',
                 borderRadius: '8px',
@@ -126,18 +164,18 @@ export default function NewTaskPage() {
                 fontSize: '16px',
                 minWidth: '120px',
                 boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-                transition: 'background-color 0.2s ease', // マウスオーバー時のアニメーション
+                transition: 'background-color 0.2s ease',
               }}
             >
-              戻る
+              戻る (S1)
             </button>
           </Link>
 
-          {/* 登録ボタン（今はまだ何も起こらないよ） */}
+          {/* 登録ボタン（type="submit" なので、formのonSubmitを呼ぶよ） */}
           <button
-            type="submit" // フォームを送信するボタンだよ
+            type="submit"
             style={{
-              backgroundColor: '#007bff', // 青色
+              backgroundColor: '#007bff',
               color: 'white',
               padding: '12px 25px',
               borderRadius: '8px',
