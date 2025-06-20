@@ -58,6 +58,25 @@ export function TaskItem({ task, onToggleComplete /*, onDelete*/ }: TaskItemProp
         {task.title}
       </Link>
 
+            {/* 編集ボタン */}
+      <Link href={`/edit/${task.id}`} passHref>
+        <button
+          style={{
+            marginLeft: '10px',
+            padding: '5px 10px',
+            backgroundColor: '#4CAF50', // 緑色にしてみたよ
+            color: 'white',
+            border: 'none',
+            borderRadius: '3px',
+            cursor: 'pointer',
+            fontSize: '0.9em',
+          }}
+        >
+          編集
+        </button>
+      </Link>
+
+
       {/* 削除ボタン */}
       <button
         // onClick={handleDeleteClick} // ★ここを以下のように変更するよ！

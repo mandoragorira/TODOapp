@@ -1,4 +1,4 @@
-// app/success/page.tsx
+// app/success/page.tsx (S7)
 
 "use client";
 
