@@ -1,4 +1,4 @@
-// app/new/page.tsx
+// app/new/page.tsx (S5,S6)
 
 "use client";
 

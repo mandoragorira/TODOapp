@@ -1,4 +1,4 @@
-// app/tasks/[id]/page.tsx
+// app/tasks/[id]/page.tsx (S2)
 
 "use client"; // ★ブラウザ側で動くおまじないだよ！useRouterを使うから必要！
 
@@ -52,19 +52,6 @@ export default function TaskDetailPage({ params }: { params: { id: string } }) {
     );
   }
 
-  // S3への削除確認ステップ
-  //const handleConfirmDelete = () => {
-    // S3の図の通り「このタスクを削除しますか？」という確認を出すよ
-    //const confirmDelete = window.confirm(`「${task.title}」を削除しますか？
-    
-
-//このタスクは元に戻せません。`);
-    //if (confirmDelete) {
-    //  deleteTask(task.id); // taskStorage.tsのdeleteTaskを呼んで削除！
-    //  router.push('/deleted-success'); // S4のページに仮で遷移するよ！
-    //}
-  //};
-  
   const handleConfirmDelete = () => {
   // window.confirmの代わりに、S3の削除確認ページに移動するよ！
   router.push(`/delete-confirm/${task.id}`); // ★ここをS3のパスに変更するよ！
@@ -129,7 +116,7 @@ export default function TaskDetailPage({ params }: { params: { id: string } }) {
         <button
           onClick={() => router.push('/')} // S1のトップページに戻るよ！
           style={{
-            backgroundColor: '#a4c2f4', // 青っぽい色
+            backgroundColor: '#a4c2f4', 
             color: 'white',
             border: 'none',
             borderRadius: '5px',
@@ -148,7 +135,7 @@ export default function TaskDetailPage({ params }: { params: { id: string } }) {
         <button
           onClick={handleConfirmDelete} // 削除確認の関数を呼ぶよ！
           style={{
-            backgroundColor: '#ff6961', // 赤っぽい色
+            backgroundColor: '#ff6961', 
             color: 'white',
             border: 'none',
             borderRadius: '5px',

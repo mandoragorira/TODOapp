@@ -1,4 +1,4 @@
-// app/delete-confirm/[id]/page.tsx
+// app/delete-confirm/[id]/page.tsx (S3)
 
 "use client"; // useRouterを使うから必要だよ！
 

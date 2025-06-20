@@ -1,4 +1,4 @@
-// app/deleted-success/page.tsx
+// app/deleted-success/page.tsx　(S4)
 
 "use client"; // useRouterを使う可能性があるため
 
