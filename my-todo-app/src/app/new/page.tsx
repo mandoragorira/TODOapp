@@ -210,9 +210,9 @@ export default function NewTaskPage() {
         </div>
       </form>
 
-      //修正 ポップアップを表示 S7（success）削除
-      //ポップアップは別のコンポーネント（Modal.tsx）
-
+      {/* /*修正 ポップアップを表示 S7（success）削除
+      //ポップアップは別のコンポーネント（Modal.tsx）*/}
+      
       {/* ★ここにModalコンポーネントを置くよ！ */}
       <Modal isOpen={showSuccessModal} onClose={handleCloseModal}>
         <h2 style={{

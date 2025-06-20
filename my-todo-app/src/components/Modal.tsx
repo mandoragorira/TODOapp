@@ -15,7 +15,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
 
   return (
     // ポップアップの背景（画面全体を覆って、後ろを暗くする部分）
-    <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50">
+    <div className="fixed inset-0 bg-gray-50 bg-opacity-50 flex items-center justify-center z-50">
       {/* ポップアップの本体（白い四角の部分） */}
       <div className="bg-white p-6 rounded-lg shadow-xl max-w-sm w-full mx-4 relative">
         {/* 閉じるボタン */}
