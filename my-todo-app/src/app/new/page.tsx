@@ -40,7 +40,9 @@ export default function NewTaskPage() {
 
     // 新しいタスクのデータを作るよ！
     const newTask: Task = {
-      id: Date.now().toString(), // 今の時間をIDにする（ユニークなIDを作る簡単な方法）
+      //修正 crypto.randomUUID()にしていましたので、統一
+      id: crypto.randomUUID(),   
+      //
       title: title.trim(), // タイトルの前後のスペースを削除
       description: description.trim(), // 詳細の前後のスペースを削除
       completed: false, // 新しいタスクは最初は未完了だね
