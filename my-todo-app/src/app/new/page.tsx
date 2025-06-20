@@ -3,11 +3,13 @@
 "use client";
 
 import Link from 'next/link';
-import { useState } from 'react';
-// ★TaskTypeとタスク保存の関数をインポートするよ！
-import { Task } from '@/types/task'; // タスクの設計図
-import { addTask } from '@/lib/taskStorage'; // タスクを追加する関数
-import { useRouter } from 'next/navigation'; // ★これもおまじない！ページを移動させるために使うよ
+import React, { useState } from 'react'; // <- 修正後
+import { Task } from '@/types/task';
+import { addTask } from '@/lib/taskStorage';
+import { useRouter } from 'next/navigation';
+
+// ★Modalコンポーネントをインポートするよ！
+import Modal from '@/components/Modal'; // <- この行を追加！
 
 export default function NewTaskPage() {
   const [title, setTitle] = useState('');
@@ -16,6 +18,9 @@ export default function NewTaskPage() {
 
   // ★ページ移動のための道具を用意するよ
   const router = useRouter();
+
+  const [showSuccessModal, setShowSuccessModal] = useState(false); // <- この行を追加！
+
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
@@ -57,8 +62,19 @@ export default function NewTaskPage() {
     // とりあえず、今は成功したらトップページに戻るようにしておこうか
     // router.push('/') とか router.push('/success-page-for-task-creation') とか
     // S7のURLがどうなるかまだ決まってないから、一旦ここではトップページに戻るようにするね
-    router.push('/success'); // ★S7用の仮のURLだよ！後で変更するかも！
+    setShowSuccessModal(true); // <-- ここを追加！成功したらポップアップを表示する
+
+      // タスク作成が成功したら、フォームをリセットする（入力欄を空にする）
+    setTitle('');
+    setDescription('');
   };
+
+  // ★ポップアップを閉じるための関数も作っておこう！
+  const handleCloseModal = () => { // <- この関数を追加！
+    setShowSuccessModal(false); // ポップアップを閉じる
+    router.push('/'); // ポップアップが閉じたらトップページに戻る
+  };
+  
 
   return (
     <main style={{
@@ -193,6 +209,48 @@ export default function NewTaskPage() {
           </button>
         </div>
       </form>
+
+      //修正 ポップアップを表示 S7（success）削除
+      //ポップアップは別のコンポーネント（Modal.tsx）
+
+      {/* ★ここにModalコンポーネントを置くよ！ */}
+      <Modal isOpen={showSuccessModal} onClose={handleCloseModal}>
+        <h2 style={{
+          textAlign: 'center',
+          color: '#3C4B64',
+          marginBottom: '15px',
+          fontSize: '24px',
+          fontWeight: 'bold',
+        }}>
+          成功しました！
+        </h2>
+        <p style={{
+          textAlign: 'center',
+          color: '#555',
+          marginBottom: '20px',
+          fontSize: '16px',
+        }}>
+          新しいタスクが作成されました！
+        </p>
+        <button
+          onClick={handleCloseModal}
+          style={{
+            backgroundColor: '#007bff',
+            color: 'white',
+            padding: '12px 25px',
+            borderRadius: '8px',
+            border: 'none',
+            cursor: 'pointer',
+            fontSize: '16px',
+            width: '100%',
+            boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+            transition: 'background-color 0.2s ease',
+          }}
+        >
+          トップページに戻る
+        </button>
+      </Modal>
+
     </main>
   );
 }
