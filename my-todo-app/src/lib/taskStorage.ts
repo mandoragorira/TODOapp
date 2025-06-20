@@ -6,6 +6,23 @@ import { Task } from '@/types/task'; // さっき作ったTaskの設計図を読
 const STORAGE_KEY = 'todo-tasks';
 
 /**
+ * 新しいタスクをリストに追加する関数だよ。
+ * @param newTask 追加したいTaskのデータ
+ * @returns 新しいタスクが追加されたTaskの配列（リスト）
+ */
+export const addTask = (newTask: Task): Task[] => {
+  // 今保存されているタスクのリストを読み込むよ
+  const tasks = loadTasks();
+  // 新しいタスクを既存のリストの先頭に追加するよ
+  // (S1のスクリーンショットでは新しいものが上に来ているから、unshiftで先頭に追加するね)
+  const updatedTasks = [newTask, ...tasks];
+  // 更新されたリストをlocalStorageに保存するよ
+  saveTasks(updatedTasks);
+  // 更新されたリストを返すよ
+  return updatedTasks;
+};
+
+/**
  * localStorageからタスクのリストを読み込む関数だよ。
  * @returns Taskの配列（リスト）を返すよ。もし何も保存されていなければ空の配列を返す。
  */
