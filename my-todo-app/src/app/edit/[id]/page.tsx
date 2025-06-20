@@ -99,7 +99,7 @@ const EditTaskPage: React.FC<EditTaskPageProps> = ({ params }) => {
 
   return (
     <div style={{ padding: '20px', maxWidth: '600px', margin: '30px auto', border: '1px solid #ddd', borderRadius: '8px', boxShadow: '2px 2px 10px rgba(0,0,0,0.1)' }}>
-      <h1 style={{ color: '#333', textAlign: 'center', marginBottom: '20px' }}>タスク編集ページ (S8)</h1>
+      <h1 style={{ color: '#333', textAlign: 'center', marginBottom: '20px' }}>タスク編集ページ</h1>
 
       <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
         <div>

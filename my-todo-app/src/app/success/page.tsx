@@ -28,16 +28,16 @@ export default function SuccessPage() {
       boxSizing: 'border-box'
     }}>
       <div style={{
-        backgroundColor: '#FFD700',
+        backgroundColor: '#2cb4ad',
         borderRadius: '10px',
         padding: '40px 30px',
         width: '90%',
         maxWidth: '400px',
         boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-        color: '#333'
+        color: '#fff'
       }}>
         <h2 style={{ fontSize: '2em', margin: '0 0 20px 0' }}>タスクを登録しました!</h2>
-        <p style={{ marginTop: '15px', color: '#333' }}>画面をタップして一覧に戻る</p>
+        <p style={{ marginTop: '15px', color: '#fff' }}>画面をタップして一覧に戻る</p>
       </div>
     </div>
   );
