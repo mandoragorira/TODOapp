@@ -36,20 +36,12 @@ export default function HomePage() {
     setTasks(updatedTasks);
   };
 
-  // const handleDelete = (id: string) => { // ★この関数もまるごと削除してね！
-  //   const updatedTasks = deleteTask(id);
-  //   setTasks(updatedTasks);
-  // };
-
+  
+//修正 BooleanをNumberに
   const sortedTasks = [...tasks].sort((a, b) => {
-    if (a.completed && !b.completed) {
-      return 1;
-    }
-    if (!a.completed && b.completed) {
-      return -1;
-    }
-    return 0;
-  });
+  return Number(a.completed) - Number(b.completed);
+});
+//
 
   return (
     <main style={{ padding: '20px', maxWidth: '600px', margin: '0 auto' }}>
