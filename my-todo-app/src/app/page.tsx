@@ -89,7 +89,6 @@ export default function HomePage() {
       <TaskList
         tasks={sortedTasks}
         onToggleComplete={handleToggleComplete}
-        // onDelete={handleDelete} // ★この行を削除またはコメントアウトしてね！
       />
     </main>
   );
