@@ -8,6 +8,8 @@ import { Task } from '@/types/task';
 // ★ここを変更！taskStorageから必要な関数を読み込むよ！
 import { loadTasks, saveTasks, getTaskById } from '@/lib/taskStorage';
 
+import Modal from '@/components/Modal'; // <- この行を追加！
+
 interface EditTaskPageProps {
   params: {
     id: string;
@@ -22,6 +24,9 @@ const EditTaskPage: React.FC<EditTaskPageProps> = ({ params }) => {
   const [description, setDescription] = useState('');
   const [error, setError] = useState('');
   const [taskFound, setTaskFound] = useState(true);
+
+  const [showSuccessModal, setShowSuccessModal] = useState(false); // <- この行を追加！
+
 
   useEffect(() => {
     if (id) {
@@ -63,7 +68,14 @@ const EditTaskPage: React.FC<EditTaskPageProps> = ({ params }) => {
     // ★ここを変更！更新したタスクリストを saveTasks() で保存するよ！
     saveTasks(updatedTasks);
 
-    router.push(`/edit-success/${id}`); // S10: 編集成功ページに飛ぶよ
+    setShowSuccessModal(true); // <-- ここを追加！成功したらポップアップを表示する
+  };
+
+   // ★ポップアップを閉じるための関数も作っておこう！
+  const handleCloseModal = () => { // <- この関数を追加！
+    setShowSuccessModal(false); // ポップアップを閉じる
+    router.push(`/`); // 編集が終わったら、編集したタスクの詳細ページに戻る
+                                // もしくは、router.push('/') で一覧に戻ってもOKだよ！
   };
 
   if (!taskFound && id) {
@@ -171,6 +183,45 @@ const EditTaskPage: React.FC<EditTaskPageProps> = ({ params }) => {
           </button>
         </div>
       </form>
+
+            {/* ★ここにModalコンポーネントを置くよ！ */}
+      <Modal isOpen={showSuccessModal} onClose={handleCloseModal}>
+        <h2 style={{
+          textAlign: 'center',
+          color: '#3C4B64',
+          marginBottom: '15px',
+          fontSize: '24px',
+          fontWeight: 'bold',
+        }}>
+          編集が完了しました！
+        </h2>
+        <p style={{
+          textAlign: 'center',
+          color: '#555',
+          marginBottom: '20px',
+          fontSize: '16px',
+        }}>
+          タスクの情報が更新されました。
+        </p>
+        <button
+          onClick={handleCloseModal} // このボタンが押されたらポップアップを閉じて詳細に戻る
+          style={{
+            backgroundColor: '#007bff',
+            color: 'white',
+            padding: '12px 25px',
+            borderRadius: '8px',
+            border: 'none',
+            cursor: 'pointer',
+            fontSize: '16px',
+            width: '100%',
+            boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+            transition: 'background-color 0.2s ease',
+          }}
+        >
+          タスク一覧に戻る
+        </button>
+      </Modal>
+
     </div>
   );
 };
